@@ -44,8 +44,8 @@
   margin-left: 12px;
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc; // override defaults
-  font-family: 'Avenir', Arial, Helvetica, sans-serif;
+  border: 1px solid #ccc; //override defaults
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
 
   &:focus {
     outline: none;
@@ -86,7 +86,6 @@ button {
 }
 
 // CSS Transitions
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity .2s;
