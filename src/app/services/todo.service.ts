@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../interfaces/todo';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+
+const API_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -10,28 +14,19 @@ export class TodoService {
   beforeEditCache: string = '';
   filter: string = 'all';
   anyRemainingModel: boolean = true;
-  todos: Todo[] = [
-    {
-      'id': 1,
-      'title': 'Finish Angular Screencast',
-      'completed': false,
-      'editing': false,
-    },
-    {
-      'id': 2,
-      'title': 'Take over world',
-      'completed': false,
-      'editing': false,
-    },
-    {
-      'id': 3,
-      'title': 'One more thing',
-      'completed': false,
-      'editing': false,
-    },
-  ];
+  todos: Todo[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.todos = this.getTodos();
+  }
+
+  getTodos(): Todo[] {
+    this.http.get(`${API_URL}/todos`)
+      .subscribe((response: any) => {
+        this.todos = response;
+        console.log(this.todos)
+      })
+  }
 
   addTodo(todoTitle: string): void {
     if (todoTitle.trim().length === 0) {
